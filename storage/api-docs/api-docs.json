@@ -1,0 +1,233 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "L5 OpenApi",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "darius@matulionis.lt"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0",
+        "x-logo": {
+            "url": "https://via.placeholder.com/190x90.png?text=L5-Swagger"
+        }
+    },
+    "paths": {
+        "/market/public/api/items": {
+            "get": {
+                "tags": [
+                    "View All Items"
+                ],
+                "summary": "Get All items",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "List all items successfully"
+                    },
+                    "400": {
+                        "description": "No Item"
+                    }
+                }
+            }
+        },
+        "/market/public/api/deletepurchase": {
+            "delete": {
+                "tags": [
+                    "Delete Purchase"
+                ],
+                "summary": "search purchase ID and delete the purchase",
+                "operationId": "destroy",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "purID": {
+                                        "description": "Purchase ID",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/market/public/api/search": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Search Items in the 2 shops with form data",
+                "operationId": "searchItem",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "Name": {
+                                        "description": "Name of the product or key words",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not found purchase ID"
+                    },
+                    "200": {
+                        "description": "Search successful"
+                    }
+                }
+            }
+        },
+        "/market/public/api/addbalance": {
+            "put": {
+                "tags": [
+                    "Add Balance"
+                ],
+                "summary": "Add Balance into the user account",
+                "operationId": "addBalance",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "Amount": {
+                                        "description": "Amount to add",
+                                        "type": "number",
+                                        "format": "double"
+                                    },
+                                    "Userid": {
+                                        "description": "Userid to add",
+                                        "type": "string"
+                                    },
+                                    "CardNumber": {
+                                        "description": "Card Number to check",
+                                        "type": "string"
+                                    },
+                                    "Pin": {
+                                        "description": "Card Pin to check",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Balance has been updated"
+                    },
+                    "400": {
+                        "description": "Wrong card infomation or userid"
+                    }
+                }
+            }
+        },
+        "/market/public/api/purchase": {
+            "post": {
+                "tags": [
+                    "Purchase"
+                ],
+                "summary": "Purchase Item from the shop",
+                "operationId": "purchase",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "Itemid": {
+                                        "description": "Item ID",
+                                        "type": "number",
+                                        "format": "double"
+                                    },
+                                    "Userid": {
+                                        "description": "User ID",
+                                        "type": "string"
+                                    },
+                                    "Sellerip": {
+                                        "description": "Seller IP",
+                                        "type": "string",
+                                        "enum": [
+                                            "shop1",
+                                            "shop2"
+                                        ]
+                                    },
+                                    "Quantity": {
+                                        "description": "Item quantity",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Purchase successful"
+                    },
+                    "400": {
+                        "description": "Purchase failed"
+                    }
+                }
+            }
+        },
+        "/market/public/api/searchpurchase": {
+            "post": {
+                "tags": [
+                    "Search Purchase"
+                ],
+                "summary": "Search Purchase history",
+                "operationId": "searchpurchase",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "purID": {
+                                        "description": "Purchase ID",
+                                        "type": "string"
+                                    },
+                                    "userID": {
+                                        "description": "User ID",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "purchase not found"
+                    },
+                    "200": {
+                        "description": "Search successful"
+                    }
+                }
+            }
+        }
+    }
+}
